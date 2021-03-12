@@ -7,11 +7,11 @@ public class PaddleMovement : MonoBehaviour
 {
     private Camera mainCamera;
     private float paddlePosY;
-    private float defaultWidth = 200f;
+    private float defaultWidth = 200;
     private SpriteRenderer renderer;
 
-    private float leftClamp = 135f;
-    private float rightClamp = 410f;
+    private float defaultLeftClamp = 135;
+    private float defaultRightClamp = 410;
 
     private void Start()
     {
@@ -27,7 +27,9 @@ public class PaddleMovement : MonoBehaviour
 
     private void MovePaddle()
     {
-        float paddleChange = (defaultWidth - (defaultWidth / 2) * this.renderer.size.x) / 2;
+        float paddleSizeChange = (defaultWidth - ((defaultWidth / 2) * this.renderer.size.x)) / 2;
+        float leftClamp = defaultLeftClamp - paddleSizeChange;
+        float rightClamp = defaultRightClamp + paddleSizeChange;
         float mousePosPixels = Mathf.Clamp(Input.mousePosition.x, leftClamp, rightClamp);
         float mousePosWorldX = mainCamera.ScreenToWorldPoint(new Vector3(mousePosPixels, 0, 0)).x;
         this.transform.position = new Vector3(mousePosWorldX, paddlePosY, 0);
