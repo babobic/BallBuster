@@ -54,8 +54,19 @@ public class PaddleMovement : MonoBehaviour
     {
         if(collision.gameObject.GetComponent<Ball>() != null)
         {
-            // Todo - depending on the position relative to center, change ball trajectory
-            Debug.Log("Here");
+            // Change ball trajectory depending on hit point relative to paddle center
+            Rigidbody2D ballRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            Vector3 hitPoint = collision.contacts[0].point;
+            Vector3 paddleCenter = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
+
+            ballRb.velocity = Vector2.zero;
+
+            float diff = paddleCenter.x - hitPoint.x;
+
+            if (hitPoint.x < paddleCenter.x)
+                ballRb.AddForce(new Vector2(-Math.Abs(diff * 250), BallManager.Instance.startingBallSpeed));
+            else
+                ballRb.AddForce(new Vector2( Math.Abs(diff * 250), BallManager.Instance.startingBallSpeed));
         }
     }
 }

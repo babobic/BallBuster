@@ -37,7 +37,7 @@ public class BallManager : MonoBehaviour
     {
         if(!GameManager.Instance.IsGameStarted)
         {
-            // Keep the ball above the paddle until game start
+            // Keep the ball above the paddle until game starts
             Vector3 paddlePos = PaddleMovement.Instance.gameObject.transform.position;
             Vector3 ballPos = new Vector3(paddlePos.x, paddlePos.y + .27f, 0);
             firstBall.transform.position = ballPos;
